@@ -1,6 +1,7 @@
 const http = require('http');
 const port = 3000;
 const fs = require('fs');
+const records = require('./data');
 
 // Create an instance of the http server to handle HTTP requests
 const server = http.createServer((req, res) => {
@@ -10,16 +11,8 @@ const server = http.createServer((req, res) => {
     if(url === '/'){
         res.writeHead(200, {'Content-Type': 'text/JavaScript'});
         // Send back a response and end the connection
-        fs.readFile('data.js', (error, data) => {
-            if(error){
-                res.writeHead(404);
-                res.write('Error, file not found...');
-            }else{
-                //res.write('Home Page.');
-                res.write(data);
-            }
-            res.end();
-        });
+            const quotes = records.getAll();
+            res.end(JSON.stringify(quotes));
     }else if(url === '/about'){
         res.writeHead(200, {'Content-Type': 'text/html'});
         // Send back a response and end the connection
