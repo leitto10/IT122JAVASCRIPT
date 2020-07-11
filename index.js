@@ -12,7 +12,9 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, {'Content-Type': 'text/JavaScript'});
         // Send back a response and end the connection
             const quotes = records.getAll();
-            res.end(JSON.stringify(quotes));
+            //console.log(quotes);
+            res.write('Here are my total Number of favorite quotes in my array: ');
+            res.end(JSON.stringify(quotes.length));
     }else if(url === '/about'){
         res.writeHead(200, {'Content-Type': 'text/html'});
         // Send back a response and end the connection
