@@ -1,42 +1,27 @@
-const http = require('http');
-const port = 3000;
-const fs = require('fs');
+const express = require('express');
+const app = express();
+const path = require('path');
+const exphbs = require('express-handlebars');
+
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
 const records = require('./data');
 
-// Create an instance of the http server to handle HTTP requests
-const server = http.createServer((req, res) => {
-
-    // Set a response type of plain text for the response
-    var url = req.url;
-    if(url === '/'){
-        res.writeHead(200, {'Content-Type': 'text/JavaScript'});
-        // Send back a response and end the connection
-            const quotes = records.getAll();
-            //console.log(quotes);
-            res.write('Here are my total Number of favorite quotes in my array: ');
-            res.end(JSON.stringify(quotes.length));
-    }else if(url === '/about'){
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        // Send back a response and end the connection
-        fs.readFile('index.html', (error, data) => {
-            if(error){
-                res.writeHead(404);
-                res.write('Error, file not found...');
-            }else{
-                res.write(data);
-            }
-            res.end();
-        });
-    }else{
-        console.log("Error, file not found...");
-    }
-});
-
-// Start the server on port 3000
-server.listen(port, (error) => {
-    if(error){
-        console.log('Something went wrong ', error);
-    }else{
-        console.log('Server is listening on port ', port);
-    }
+//Send a GET request to READ(view) a list of quotes
+app.get('/', async (req, res) => {
+    const quotes = await records.getAll();
+    //res.json(quotes);
+    res.render('home', { quotes: quotes});
 })
+
+//Send a GET request to READ(view) a single quote
+//http://localhost:3000/detail?item
+app.get('/detail', async (req, res) => {
+    //const quote = await records.getQuote(req.params.id);
+    const quote = await records.getQuote(req.query.id);
+    //res.json(quote);
+    res.render('details', quote);
+})
+
+app.listen(3000, () => console.log('Quote API listening on port 3000!'));
