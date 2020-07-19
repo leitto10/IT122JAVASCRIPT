@@ -44,11 +44,25 @@ function getAll(){
  * Gets a specific quote by ID
  * @param {number} id - Accepts the ID of the specified quote.
  */
-async function getQuote(id) {
+function getQuote(id) {
   //const quotes = await getAll();
   return data.find(data => data.id == id);
 }
 
+//should return full data about the requested item
+function getItem() {
+
+}
+
+//should add a new item to the data array, if it doesn't already exist
+function addItem() {
+
+}
+
+//should delete the requested item
+function deleteItem() {
+
+}
 
 
 module.exports = {

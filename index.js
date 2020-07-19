@@ -9,17 +9,17 @@ app.set('view engine', 'handlebars');
 const records = require('./data');
 
 //Send a GET request to READ(view) a list of quotes
-app.get('/', async (req, res) => {
-    const quotes = await records.getAll();
+app.get('/', (req, res) => {
+    const quotes = records.getAll();
     //res.json(quotes);
     res.render('home', { quotes: quotes});
 })
 
 //Send a GET request to READ(view) a single quote
 //http://localhost:3000/detail?item
-app.get('/detail', async (req, res) => {
+app.get('/detail', (req, res) => {
     //const quote = await records.getQuote(req.params.id);
-    const quote = await records.getQuote(req.query.id);
+    const quote = records.getQuote(req.query.id);
     //res.json(quote);
     res.render('details', quote);
 })

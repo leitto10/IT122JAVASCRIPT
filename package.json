@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "lint": "eslint ./"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,14 @@
   "bugs": {
     "url": "https://github.com/leitto10/IT122JAVASCRIPT/issues"
   },
-  "homepage": "https://github.com/leitto10/IT122JAVASCRIPT#readme"
+  "homepage": "https://github.com/leitto10/IT122JAVASCRIPT#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
+    "eslint": "^7.5.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0"
+  }
 }
