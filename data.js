@@ -1,4 +1,4 @@
-const data = [
+let data = [
   {
     "id": 1,
     "quote": "We must accept finite disappointment, but we must never lose infinite hope.",
@@ -40,32 +40,48 @@ function getAll(){
   return data;
 }
 
-/**
- * Gets a specific quote by ID
- * @param {number} id - Accepts the ID of the specified quote.
- */
+//should return full data about the requested item(id)
 function getQuote(id) {
   //const quotes = await getAll();
   return data.find(data => data.id == id);
 }
 
-//should return full data about the requested item
-function getItem() {
-
+function generateRandomId(){
+  return Math.floor(Math.random() * 10000);
 }
 
 //should add a new item to the data array, if it doesn't already exist
-function addItem() {
-
+function addItemQuote(newRecord) {
+  let nl = data.length;
+  console.log(data.length);
+  newRecord.id = generateRandomId();
+  data.push(newRecord);
+  console.log(newRecord);
+  console.log(data.length);
+  return {created: nl !== data.length}
 }
 
-//should delete the requested item
-function deleteItem() {
+console.log(addItemQuote({
+	quote:"There is no place like home",
+	author:"Jose Jose",
+	date: "07/18/2020"
+})
+);
 
-}
+//deleteItem - should delete the requested item
+function deleteItemQuote(record) {
+   let nl = data.length;
+   console.log(data.length);
+   data = data.filter(item => item.id !== record.id);
+   console.log(data.length);
+   return {deleted: nl !== data.length}
+ }
 
+console.log(deleteItemQuote({id: 1}));
 
-module.exports = {
-  getAll,
-  getQuote
-}
+// module.exports = {
+//   getAll,
+//   getQuote,
+//   addItemQuote,
+//   deleteItemQuote
+// }

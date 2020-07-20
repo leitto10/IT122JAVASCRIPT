@@ -4,7 +4,7 @@
   "description": "Week 1 - Node.js up and running",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/",
     "start": "nodemon index.js",
     "lint": "eslint ./"
   },
@@ -25,7 +25,9 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.6.1",
     "@typescript-eslint/parser": "^3.6.1",
-    "eslint": "^7.5.0"
+    "chai": "^4.2.0",
+    "eslint": "^7.5.0",
+    "mocha": "^8.0.1"
   },
   "dependencies": {
     "express": "^4.17.1",
