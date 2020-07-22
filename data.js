@@ -35,53 +35,56 @@ let data = [
  * Gets all quotes
  * @param None
  */
-function getAll(){
+const getAll = () => {
   //console.log('Rturning the data ', data);
-  return data;
+  return {data: true}
 }
 
 //should return full data about the requested item(id)
-function getQuote(id) {
-  //const quotes = await getAll();
+const getQuote = (id) => {
   return data.find(data => data.id == id);
 }
 
-function generateRandomId(){
-  return Math.floor(Math.random() * 10000);
+const generateRandomId = () => {
+  return Math.floor(Math.random() * 100);
 }
 
 //should add a new item to the data array, if it doesn't already exist
-function addItemQuote(newRecord) {
+const addItemQuote = (newRecord) => {
   let nl = data.length;
-  console.log(data.length);
-  newRecord.id = generateRandomId();
-  data.push(newRecord);
-  console.log(newRecord);
-  console.log(data.length);
+  if(newRecord.quote !== undefined && newRecord.author !== undefined && newRecord.date !== undefined){
+      newRecord.id = generateRandomId();
+      data.push(newRecord);
+      console.log(newRecord);
+      console.log(data);
+      console.log('New quote was created');
+  }else{
+    console.log('New quote submission is invalid');
+  }
   return {created: nl !== data.length}
 }
 
-console.log(addItemQuote({
-	quote:"There is no place like home",
-	author:"Jose Jose",
-	date: "07/18/2020"
-})
-);
+// addItemQuote({
+// 	quote:"There is no place like home",
+// 	author:"Jose Jose",
+// 	date: "07/18/2020"
+// });
 
 //deleteItem - should delete the requested item
-function deleteItemQuote(record) {
+const deleteItemQuote = (record) => {
    let nl = data.length;
    console.log(data.length);
    data = data.filter(item => item.id !== record.id);
    console.log(data.length);
+   console.log(data);
    return {deleted: nl !== data.length}
  }
+//deleteItemQuote({id: 1});
 
-console.log(deleteItemQuote({id: 1}));
 
-// module.exports = {
-//   getAll,
-//   getQuote,
-//   addItemQuote,
-//   deleteItemQuote
-// }
+module.exports = {
+  getAll,
+  getQuote,
+  addItemQuote,
+  deleteItemQuote
+}
