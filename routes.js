@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express();
-//const router = express.Router();
 const mongoose = require('mongoose');
 const exphbs = require('express-handlebars');
 const bodyParser = require("body-parser");
@@ -13,13 +12,6 @@ router.use(express.urlencoded({extended: false}));
 
 router.engine('handlebars', exphbs());
 router.set('view engine', 'handlebars');
-
-//Connection string to the database
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
-.then(() => console.log('DB Connected!'))
-.catch(err => {
-    console.log(err);
-})
 
 //Send a GET request to READ(view) a list of quotes
 router.get('/quotes', (req, res, next) => {
