@@ -48,6 +48,7 @@ router.get('/detail', (req, res) => {
 });
 
 //Send a POST request to CREATE new Document.
+//http://localhost:3000/api/quotes
 router.post('/quotes', (req, res) => {
     console.log('Body', req.body);
     if(req.body.author && req.body.quote && req.body.date){

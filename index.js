@@ -4,6 +4,7 @@ const routes = require('./routes');
 
 app.use(express.json());
 // set Access-Control-Allow-Origin header for api route
+app.use('/', routes);
 app.use('/api', routes, require('cors')());
 
 //Error handlers middleware for staff that wen wrong with the 
