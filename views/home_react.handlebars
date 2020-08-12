@@ -5,6 +5,7 @@
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <!-- Don't use this in production: -->
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    
 </head>
 
 <body>
@@ -13,12 +14,29 @@
 <script type="text/babel">
     // define your sub components here
 
+    const ItemList = (props) => {
+      const bullets =  props.items.map((item)=> {
+        return <li onClick={props.handleClick} key={item._id}>{item.quote}</li>
+      });
+      return <ul>{bullets}</ul>
+    }
+
+    const ItemDetail = (props) => {
+      return <div>
+              <h3>Details for:</h3>
+              <li>Quote: {props.item.quote}</li>
+              <li>Author: {props.item.author}</li>
+              <li>Date: {props.item.date}</li>
+              <li>id: {props.item._id}</li>
+            </div>
+    }
+
     class App extends React.Component{
       constructor(props){
           super(props);
           // Set initial state using data from server application
           this.state = {
-            items: {{{ items }}},
+            items: {{{ quotes }}},
             currentItem: { } // current selected item
           };
 
@@ -30,13 +48,21 @@
       selectItem(event) {
         // event.target is the HTML item clicked
         console.log(event.target.innerText);
+        const found = this.state.items.find((item)=> {
+          return item.quote === event.target.innerText;
+        });
+        console.log(found);
+        this.setState({currentItem: found});
       }
 
       render() {
         // render app UI elements
         return (
           <div>
-          <h2>Components go here</h2>
+          <h2>List of Quotes</h2>
+          <ItemList items={this.state.items} handleClick={this.selectItem}/>
+          <hr />
+          <ItemDetail item={this.state.currentItem} />
           </div>
           );
       }

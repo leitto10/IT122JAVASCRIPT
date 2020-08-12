@@ -19,8 +19,7 @@ router.get('/quotes', (req, res, next) => {
     .lean()
     .then((quotes) => {
         console.log(quotes);
-        res.render('home', {quotes});
-        //res.json(quotes);
+        res.render('home_react', {quotes: JSON.stringify(quotes)});
     })
     .catch(err => next(err));
 });
