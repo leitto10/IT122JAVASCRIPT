@@ -78,7 +78,7 @@ app.post('/api/quotes', (req, res) => {
 
 //Delete a Quote from the database
 //http://localhost:3000/api/delete/:id
-app.delete('/api/delete/:id', (req, res) => {
+app.get('/api/delete/:id', (req, res) => {
     const itemId = req.params.id;
     records.deleteOne({_id: itemId})
     .exec()
@@ -95,13 +95,14 @@ app.delete('/api/delete/:id', (req, res) => {
 
 //Update a sigle record
 //http://localhost:3000/api/quote?id=
-app.put('/api/quote', (req, res) => {
-    const itemId = req.query.id;
+app.get('/api/quote/:id', (req, res) => {
+    const itemId = req.params.id;
     if(!itemId){
         return res.status(400).send("Missing URL parameter: quote id.");
     }
     records.findOneAndUpdate(
-        {_id: itemId}, req.body, {new: true})
+        {_id: itemId}, 
+        {quote: req.params.quote, author: req.params.author, date: req.params.date} ,{new: true})
     .exec()
     .then(result => {
         console.log(result);
