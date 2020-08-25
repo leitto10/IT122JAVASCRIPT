@@ -19,7 +19,7 @@ app.use('/api', require('cors')());
 
 //Send a GET request to READ(view) a list of quotes
 //http://localhost:3000/api/quotes/
-app.get('/api/quotes', (req, res, next) => {
+app.get('/', (req, res, next) => {
     return records.find({})
     .lean()
     .then((quotes) => {
@@ -95,14 +95,13 @@ app.get('/api/delete/:id', (req, res) => {
 
 //Update a sigle record
 //http://localhost:3000/api/quote?id=
-app.get('/api/quote/:id', (req, res) => {
+app.post('/api/quote/:id', (req, res) => {
     const itemId = req.params.id;
     if(!itemId){
         return res.status(400).send("Missing URL parameter: quote id.");
     }
-    records.findOneAndUpdate(
-        {_id: itemId}, 
-        {quote: req.params.quote, author: req.params.author, date: req.params.date} ,{new: true})
+    records.findByIdAndUpdate(
+        {_id: itemId}, req.body, {new: true})
     .exec()
     .then(result => {
         console.log(result);

@@ -54,12 +54,21 @@
       }
 
       handleUpdate() {
-        fetch(`/api/quote/${this.state.currentItem._id}`)
+        fetch(`/api/quote/${this.state.currentItem._id}`, {
+          method: "POST",
+        	headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            quote: this.state.currentItem.quote,
+            author: this.state.currentItem.author,
+            date: this.state.currentItem.date,
+          })
+        })
         .then((response) => {
             return response.json();
         })
         .then((result) => {
-          console.log(result); 
+          console.log(JSON.stringify(result));
+          this.setState(result) 
         })
         .catch(err => console.log(err));
       }
