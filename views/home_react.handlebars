@@ -32,7 +32,7 @@
               </form>
               <button onClick={props.handleClear}>Clear</button>
               <button onClick={props.handleDelete}>Delete</button>
-              <button onClick={props.handleUpdate}>Save</button>
+              <button onClick={props.handleUpdate}>Update</button>
             </div>
     }
 
@@ -74,6 +74,7 @@
       }
 
       handleDelete() {
+        console.log("Delete me");
         fetch(`/api/delete/${this.state.currentItem._id}`)
         .then((response) => {
             return response.json();
@@ -85,10 +86,12 @@
       }
 
       handleEdit(e){
+        console.log(e.target.value);
         let newItem = this.state.currentItem;
         newItem[e.target.name] = e.target.value;
         this.setState({currentItem: newItem});
       }
+
 
       handleClear() {
         this.setState({currentItem: {}});
